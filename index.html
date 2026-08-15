@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hariprasad — Multidisciplinary Builder · Content Creator</title>
+<meta name="description" content="Hariprasad — multidisciplinary builder working across full-stack engineering, Web3, AI, creative technology, and community growth.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230A0A0C%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22%23C9A227%22>H</text></svg>">
+<script src="./tailwind.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: '#0A0A0C',
+          bgraised: '#131316',
+          ink: '#EDEBE6',
+          inkdim: '#9A9892',
+          line: 'rgba(237,235,230,0.12)',
+          gold: '#C9A227',
+          goldbright: '#E4BE4A',
+          fullstack: '#5B8CFF',
+          web3: '#9B7EDE',
+          ai: '#4FC3B0',
+          creative: '#E8607A',
+          growth: '#D9A441',
+        },
+        fontFamily: {
+          display: ['"Segoe UI"', 'ui-sans-serif', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+          mono: ['"Cascadia Code"', '"Consolas"', 'ui-monospace', '"SF Mono"', 'Menlo', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #0A0A0C; color: #EDEBE6; }
+  ::selection { background: #C9A227; color: #0A0A0C; }
+
+  /* circuit spine */
+  .spine {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,162,39,0.35) 6%, rgba(201,162,39,0.35) 94%, transparent);
+  }
+  .spine-node {
+    position: absolute;
+    left: -5px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: #0A0A0C;
+    border: 1.5px solid rgba(201,162,39,0.45);
+    transition: background .5s ease, border-color .5s ease, box-shadow .5s ease;
+  }
+  .spine-node.lit {
+    background: #C9A227;
+    border-color: #E4BE4A;
+    box-shadow: 0 0 12px 2px rgba(201,162,39,0.55);
+  }
+
+  /* scroll reveal */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .spine-node { transition: none; }
+  }
+
+  .card {
+    transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px -12px rgba(0,0,0,0.6);
+  }
+
+  .tag {
+    letter-spacing: .04em;
+  }
+
+  /* Premium micro-interactions */
+  .hero-glow {
+    animation: heroPulse 8s ease-in-out infinite;
+    transform: translateY(var(--py, 0px));
+  }
+  @keyframes heroPulse {
+    0%, 100% { opacity: .55; transform: translateY(var(--py, 0px)) scale(1); }
+    50% { opacity: .9; transform: translateY(var(--py, 0px)) scale(1.06); }
+  }
+
+  /* hero name gold sweep */
+  .hero-name-wrap { position: relative; display: inline-block; overflow: hidden; }
+  .hero-name-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(228,190,74,.55) 48%, rgba(228,190,74,.9) 50%, rgba(228,190,74,.55) 52%, transparent 70%);
+    transform: translateX(-130%);
+    mix-blend-mode: overlay;
+    animation: heroSweep 1.5s 1.05s ease-out 1 forwards;
+    pointer-events: none;
+  }
+  @keyframes heroSweep {
+    to { transform: translateX(130%); }
+  }
+
+  /* journey spine draw */
+  .spine-track {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+    background: rgba(201,162,39,0.14);
+  }
+  .spine-fill {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, #E4BE4A, #C9A227);
+    transform-origin: top;
+    transform: scaleY(0);
+    box-shadow: 0 0 8px 1px rgba(201,162,39,.5);
+  }
+  .spine-node { position: relative; }
+  .spine-node::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(201,162,39,0.6);
+    opacity: 0;
+    transform: scale(.6);
+  }
+  .spine-node.lit::after {
+    animation: nodePulse .9s ease-out;
+  }
+  @keyframes nodePulse {
+    0% { opacity: .9; transform: scale(.6); }
+    100% { opacity: 0; transform: scale(2.4); }
+  }
+
+  /* section progress rail */
+  .rail-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(237,235,230,0.25);
+    transition: background-color .3s ease, transform .3s ease;
+  }
+  .rail-item[data-active="true"] .rail-dot {
+    background: #C9A227;
+    transform: scale(1.6);
+    box-shadow: 0 0 8px 1px rgba(201,162,39,.6);
+  }
+  .rail-item[data-active="true"] .rail-num {
+    color: #C9A227;
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .rail-num {
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity .3s ease, transform .3s ease, color .3s ease;
+  }
+  .rail-item:hover .rail-num { opacity: 1; transform: translateX(0); }
+
+  /* card tilt */
+  .card { transform-style: preserve-3d; will-change: transform; }
+
+  .stat-value {
+    font-variant-numeric: tabular-nums;
+  }
+
+
+  .timeline-duration {
+    position: relative;
+    z-index: 2;
+    padding-left: 1.5rem;
+  }
+
+  @media (max-width: 767px) {
+    .timeline-duration {
+      padding-left: 1.35rem;
+    }
+  }
+
+  .timeline-entry {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(5.5rem, 7rem) minmax(0, 1fr);
+    column-gap: 2rem;
+  }
+
+  .timeline-entry .timeline-year {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 767px) {
+  
+  .timeline-duration {
+    position: relative;
+    z-index: 2;
+    padding-left: 1.5rem;
+  }
+
+  @media (max-width: 767px) {
+    .timeline-duration {
+      padding-left: 1.35rem;
+    }
+  }
+
+  .timeline-entry {
+      grid-template-columns: 5rem minmax(0, 1fr);
+      column-gap: 1.25rem;
+    }
+  }
+
+  .project-card {
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 20%, rgba(228,190,74,.07) 50%, transparent 80%);
+    transform: translateX(-120%);
+    transition: transform .7s ease;
+    pointer-events: none;
+  }
+  .project-card:hover::after {
+    transform: translateX(120%);
+  }
+
+  .filter-btn {
+    transition: transform .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .filter-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .filter-btn[aria-pressed="true"] {
+    background: #C9A227;
+    color: #0A0A0C;
+    border-color: #C9A227;
+  }
+
+  .section-kicker {
+    position: relative;
+    display: inline-block;
+  }
+  .section-kicker::after {
+    content: "";
+    display: block;
+    width: 34px;
+    height: 1px;
+    margin-top: 7px;
+    background: #C9A227;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform .6s ease;
+  }
+  .section-kicker.in::after {
+    transform: scaleX(1);
+  }
+
+  @media (max-width: 767px) {
+    .hero-name {
+      font-size: 12vw;
+    }
+    .stat-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-glow { animation: none; }
+    .project-card::after { display: none; }
+    .filter-btn:hover { transform: none; }
+    .hero-name-wrap::after { animation: none; content: none; }
+    .spine-fill { transform: scaleY(1) !important; }
+    .spine-node.lit::after { animation: none; }
+    .card { transform: none !important; }
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #C9A227;
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #0A0A0C; }
+  ::-webkit-scrollbar-thumb { background: #232327; border-radius: 6px; }
+
+  .filter-btn[data-active="true"] {
+    background: #C9A227;
+    color: #0A0A0C;
+    border-color: #C9A227;
+  }
+
+  .hairline { border-color: rgba(237,235,230,0.12); }
+
+  .gold-underline {
+    background-image: linear-gradient(#C9A227, #C9A227);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+  }
+</style>
+</head>
+<body class="font-sans antialiased selection:bg-gold">
+
+<!-- ============ NAV ============ -->
+<nav class="fixed top-0 inset-x-0 z-40 backdrop-blur bg-bg/70 border-b hairline">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+    <a href="#top" aria-label="Back to top" class="flex items-center" >
+      <img src="hari.png" alt="Hari" class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover border-2 border-gold/70 shadow-[0_0_18px_rgba(201,162,39,0.24)]">
+    </a>
+    <div id="desktopNav" class="hidden md:flex items-center gap-7 font-mono text-xs tracking-widest text-inkdim uppercase">
+      <a href="#journey" class="hover:text-ink transition-colors">Journey</a>
+      <a href="#projects" class="hover:text-ink transition-colors">Projects</a>
+      <a href="#creative" class="hover:text-ink transition-colors">Creative</a>
+      <a href="#growth" class="hover:text-ink transition-colors">Growth</a>
+      <a href="#approach" class="hover:text-ink transition-colors">Approach</a>
+      <a href="#skills" class="hover:text-ink transition-colors">Skills</a>
+      <a href="#contact" class="px-3 py-1.5 border border-gold text-gold hover:bg-gold hover:text-bg transition-colors">Contact</a>
+    </div>
+    <button id="menuToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden relative z-50 w-10 h-10 -mr-2 flex flex-col items-center justify-center gap-[5px]">
+      <span class="menu-bar block w-6 h-[1.5px] bg-ink transition-transform duration-300 ease-in-out"></span>
+      <span class="menu-bar block w-6 h-[1.5px] bg-ink transition-opacity duration-200 ease-in-out"></span>
+      <span class="menu-bar block w-6 h-[1.5px] bg-ink transition-transform duration-300 ease-in-out"></span>
+    </button>
+  </div>
+  <div id="mobileMenu" class="md:hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out border-t border-transparent">
+    <div class="flex flex-col px-6 py-2 font-mono text-sm tracking-widest text-inkdim uppercase">
+      <a href="#journey" class="mobile-link py-3.5 border-b hairline hover:text-ink transition-colors">Journey</a>
+      <a href="#projects" class="mobile-link py-3.5 border-b hairline hover:text-ink transition-colors">Projects</a>
+      <a href="#creative" class="mobile-link py-3.5 border-b hairline hover:text-ink transition-colors">Creative</a>
+      <a href="#growth" class="mobile-link py-3.5 border-b hairline hover:text-ink transition-colors">Growth</a>
+      <a href="#approach" class="mobile-link py-3.5 border-b hairline hover:text-ink transition-colors">Approach</a>
+      <a href="#skills" class="mobile-link py-3.5 border-b hairline hover:text-ink transition-colors">Skills</a>
+      <a href="#contact" class="mobile-link mt-4 mb-5 px-3 py-2.5 text-center border border-gold text-gold hover:bg-gold hover:text-bg transition-colors">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ SECTION PROGRESS RAIL ============ -->
+<nav aria-label="Section progress" class="hidden lg:flex flex-col gap-3.5 fixed right-6 top-1/2 -translate-y-1/2 z-30">
+  <a href="#journey" data-rail="journey" class="rail-item flex items-center gap-3 justify-end">
+    <span class="rail-num font-mono text-[10px] tracking-widest text-inkdim">01</span>
+    <span class="rail-dot"></span>
+  </a>
+  <a href="#projects" data-rail="projects" class="rail-item flex items-center gap-3 justify-end">
+    <span class="rail-num font-mono text-[10px] tracking-widest text-inkdim">02</span>
+    <span class="rail-dot"></span>
+  </a>
+  <a href="#creative" data-rail="creative" class="rail-item flex items-center gap-3 justify-end">
+    <span class="rail-num font-mono text-[10px] tracking-widest text-inkdim">03</span>
+    <span class="rail-dot"></span>
+  </a>
+  <a href="#growth" data-rail="growth" class="rail-item flex items-center gap-3 justify-end">
+    <span class="rail-num font-mono text-[10px] tracking-widest text-inkdim">04</span>
+    <span class="rail-dot"></span>
+  </a>
+  <a href="#approach" data-rail="approach" class="rail-item flex items-center gap-3 justify-end">
+    <span class="rail-num font-mono text-[10px] tracking-widest text-inkdim">05</span>
+    <span class="rail-dot"></span>
+  </a>
+  <a href="#skills" data-rail="skills" class="rail-item flex items-center gap-3 justify-end">
+    <span class="rail-num font-mono text-[10px] tracking-widest text-inkdim">06</span>
+    <span class="rail-dot"></span>
+  </a>
+  <a href="#contact" data-rail="contact" class="rail-item flex items-center gap-3 justify-end">
+    <span class="rail-num font-mono text-[10px] tracking-widest text-inkdim">07</span>
+    <span class="rail-dot"></span>
+  </a>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header id="top" class="relative pt-40 pb-28 px-6 md:px-10 overflow-hidden">
+  <div class="hero-glow pointer-events-none absolute -top-24 right-[-10%] w-[520px] h-[520px] rounded-full bg-gold/10 blur-[120px]"></div>
+  <div class="max-w-6xl mx-auto relative">
+    <p class="reveal delay-0 font-mono text-xs md:text-sm tracking-[0.25em] text-gold uppercase mb-6">Multidisciplinary Builder · Content Creator</p>
+    <h1 class="reveal delay-150 hero-name text-[12vw] leading-[0.88] md:text-[7.5rem] font-black tracking-tight text-ink"><span class="hero-name-wrap">HARIPRASAD</span></h1>
+    <p class="reveal delay-300 text-lg md:text-2xl text-inkdim mt-6 max-w-2xl font-light">
+      Full-Stack <span class="text-line">·</span> Web3 <span class="text-line">·</span> AI <span class="text-line">·</span> Creative Technology <span class="text-line">·</span> Community &amp; Growth
+    </p>
+    <p class="reveal delay-500 text-base md:text-lg text-ink/80 mt-8 max-w-2xl leading-relaxed">
+      I build products, create the content and brand around them, and know how to attract users and turn attention into opportunities. My experience spans full-stack development, Web3, AI, creative technology and community building, allowing me to work across both the product and the people side of a project.
+    </p>
+    <div class="reveal delay-700 mt-10 flex flex-wrap gap-3">
+      <a href="#projects" class="px-5 py-3 bg-gold text-bg font-mono text-xs tracking-widest uppercase hover:bg-goldbright transition-colors">See the work</a>
+      <a href="#contact" class="px-5 py-3 border border-line text-ink font-mono text-xs tracking-widest uppercase hover:border-gold transition-colors">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STAT STRIP ============ -->
+<section class="relative border-y hairline bg-bgraised/60">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-12">
+    <div class="reveal grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+      <div>
+        <p class="font-mono text-3xl md:text-4xl font-bold text-gold">8+</p>
+        <p class="text-xs text-inkdim mt-1 uppercase tracking-wide">Years of professional experience</p>
+      </div>
+      <div>
+        <p class="font-mono text-3xl md:text-4xl font-bold text-gold">₹1.5L</p>
+        <p class="text-xs text-inkdim mt-1 uppercase tracking-wide">Duckers Bloodline sales · 7 days</p>
+      </div>
+      <div>
+        <p class="font-mono text-3xl md:text-4xl font-bold text-gold">1,500+</p>
+        <p class="text-xs text-inkdim mt-1 uppercase tracking-wide">X followers built</p>
+      </div>
+      <div>
+        <p class="font-mono text-3xl md:text-4xl font-bold text-gold">2,000</p>
+        <p class="text-xs text-inkdim mt-1 uppercase tracking-wide">Duckers Bloodline pieces</p>
+      </div>
+      <div>
+        <p class="font-mono text-3xl md:text-4xl font-bold text-gold">10</p>
+        <p class="text-xs text-inkdim mt-1 uppercase tracking-wide">Bloodscale Eternal editions · sold out</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNEY (Education + Experience, spine timeline) ============ -->
+<section id="journey" class="relative py-28 px-6 md:px-10">
+  <div class="max-w-6xl mx-auto">
+    <p class="reveal section-kicker font-mono text-xs tracking-[0.25em] text-gold uppercase mb-3">01 — The circuit</p>
+    <h2 class="reveal text-4xl md:text-5xl font-black tracking-tight mb-16">Journey</h2>
+
+    <div class="relative pl-10 md:pl-14" id="journeyTrack">
+      <div class="spine-track"></div>
+      <div class="spine-fill" id="spineFill"></div>
+
+      <!-- Education -->
+      <div class="reveal relative mb-16" data-spine>
+        <div class="spine-node" style="top:6px"></div>
+        <p class="font-mono text-xs text-gold uppercase tracking-widest mb-1"><span class="timeline-duration">2013 – 2017</span></p>
+        <h3 class="text-xl md:text-2xl font-bold text-ink">Acharya Institute of Technology</h3>
+        <p class="text-inkdim mt-1">Bachelor's Degree · Electrical Engineering</p>
+        <p class="text-ink/70 mt-3 max-w-2xl text-sm md:text-base leading-relaxed">Where the circuit started — before it rewired itself into full-stack, Web3, AI and everything built since.</p>
+      </div>
+
+      <!-- Suvarna -->
+      <div class="reveal relative mb-16" data-spine>
+        <div class="spine-node" style="top:6px"></div>
+        <p class="timeline-duration font-mono text-xs text-gold uppercase tracking-widest mb-1"><span class="timeline-duration">1 Year</span></p>
+        <h3 class="text-xl md:text-2xl font-bold text-ink">Suvarna Tech Solutions</h3>
+        <p class="text-inkdim mt-1">Frontend Developer · Startup Partner</p>
+        <ul class="mt-3 space-y-1.5 text-ink/70 text-sm md:text-base leading-relaxed max-w-2xl list-disc list-inside marker:text-gold">
+          <li>Frontend-focused partner in a two-person web-development startup across multiple website projects — HTML, CSS, Bootstrap, JavaScript, later React.</li>
+          <li>Handled UI, logo and black-and-gold visual direction for Rajarajeshwari Enterprises alongside implementation.</li>
+          <li>Worked on a percentage / revenue-share basis.</li>
+        </ul>
+      </div>
+
+      <!-- Infosys -->
+      <div class="reveal relative mb-16" data-spine>
+        <div class="spine-node" style="top:6px"></div>
+        <p class="timeline-duration font-mono text-xs text-gold uppercase tracking-widest mb-1"><span class="timeline-duration">2 Years</span></p>
+        <h3 class="text-xl md:text-2xl font-bold text-ink">Infosys</h3>
+        <p class="text-inkdim mt-1">System Engineer</p>
+        <ul class="mt-3 space-y-1.5 text-ink/70 text-sm md:text-base leading-relaxed max-w-2xl list-disc list-inside marker:text-gold">
+          <li>~6 months of technical training; exposure to enterprise software development and large-scale technology workflows.</li>
+          <li>Worked on a project involving the Elastic Stack and data infrastructure before transitioning into independent Web3 development.</li>
+        </ul>
+      </div>
+
+      <!-- Independent -->
+      <div class="reveal relative" data-spine>
+        <div class="spine-node lit" style="top:6px"></div>
+        <p class="timeline-duration font-mono text-xs text-gold uppercase tracking-widest mb-1"><span class="timeline-duration">5 Years · Present</span></p>
+        <h3 class="text-xl md:text-2xl font-bold text-ink">Independent — Web3 / Crypto</h3>
+        <p class="text-inkdim mt-1">Builder · Creator · Community</p>
+        <ul class="mt-3 space-y-1.5 text-ink/70 text-sm md:text-base leading-relaxed max-w-2xl list-disc list-inside marker:text-gold">
+          <li>Built and shipped across Ethereum, XRPL, Solana, Sui and other ecosystems — NFT infrastructure, DeFi/DEX experiments, arbitrage detection, developer tools.</li>
+          <li>Later expanded into AI engineering and LLM-based systems, currently learning by building personal AI projects such as Princess AI.</li>
+          <li>Built <strong class="text-ink">What The Duck</strong> into a Web3 project and personal brand — product, content, community, branding, marketing and user acquisition, together.</li>
+          <li>Grew an international network through X Spaces, collaborations and cross-chain communities, generating referrals and inbound opportunities.</li>
+          <li>Frequently worked independently with limited resources, owning technical, creative and community responsibilities at once.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECHNICAL & PRODUCT PROJECTS ============ -->
+<section id="projects" class="relative py-28 px-6 md:px-10 bg-bgraised/40 border-y hairline">
+  <div class="max-w-6xl mx-auto">
+    <p class="reveal section-kicker font-mono text-xs tracking-[0.25em] text-gold uppercase mb-3">02 — Shipped</p>
+    <h2 class="reveal text-4xl md:text-5xl font-black tracking-tight mb-4">Technical &amp; Product Projects</h2>
+    <p class="reveal text-inkdim max-w-2xl mb-10">Every card carries the domains it actually touched. Filter to see how they overlap — most of them don't sit in just one lane.</p>
+
+    <!-- filters -->
+    <div id="filters" class="reveal flex flex-wrap gap-2 mb-12 font-mono text-xs uppercase tracking-widest">
+      <button aria-pressed="true" data-filter="all" data-active="true" class="filter-btn border border-line px-3 py-1.5 rounded-full transition-colors hover:border-gold">All</button>
+      <button aria-pressed="false" data-filter="fullstack" class="filter-btn border border-line px-3 py-1.5 rounded-full transition-colors hover:border-fullstack">Full-Stack</button>
+      <button aria-pressed="false" data-filter="web3" class="filter-btn border border-line px-3 py-1.5 rounded-full transition-colors hover:border-web3">Web3</button>
+      <button aria-pressed="false" data-filter="ai" class="filter-btn border border-line px-3 py-1.5 rounded-full transition-colors hover:border-ai">AI</button>
+      <button aria-pressed="false" data-filter="creative" class="filter-btn border border-line px-3 py-1.5 rounded-full transition-colors hover:border-creative">Creative</button>
+      <button aria-pressed="false" data-filter="growth" class="filter-btn border border-line px-3 py-1.5 rounded-full transition-colors hover:border-growth">Growth</button>
+    </div>
+
+    <div id="project-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Vader DAO -->
+      <article class="card project-card reveal" data-tags="web3">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-web3 border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3"><span class="tag text-[10px] px-2 py-0.5 rounded-full border border-web3 text-web3">WEB3</span></div>
+          <h3 class="text-lg font-bold text-ink">Vader DAO</h3>
+          <p class="text-xs text-inkdim mb-3">DeFi Investment DAO · Ethereum · Governance</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Designed a DAO around a token presale and treasury, deploying pooled capital into DeFi for yield and returning generated rewards to participants through token-holder governance.</p>
+          <p class="mt-4 font-mono text-[10px] uppercase tracking-widest text-inkdim">Token presale · Treasury · DeFi yield · Governance</p>
+        </div>
+      </article>
+
+      <!-- ZebraSwap -->
+      <article class="card project-card reveal" data-tags="web3 growth">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-web3 border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3">
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-web3 text-web3">WEB3</span>
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-growth text-growth">GROWTH</span>
+          </div>
+          <h3 class="text-lg font-bold text-ink">ZebraSwap</h3>
+          <p class="text-xs text-inkdim mb-3">DeFi / DEX · Solidity · Graph Protocol · WalletConnect</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Reverse-engineered a PancakeSwap-based DEX without AI assistance or readily available step-by-step resources. Got wallet connectivity, token swaps and core DEX functionality working with a four-person international team.</p>
+          <div class="mt-4 grid grid-cols-2 gap-2 font-mono text-[10px] uppercase tracking-widest">
+            <span class="border border-gold/30 px-2 py-1.5 text-gold">Swaps ✓</span>
+            <span class="border border-gold/30 px-2 py-1.5 text-gold">Core DEX ✓</span>
+            <span class="border border-line px-2 py-1.5 text-inkdim">Pools —</span>
+            <span class="border border-line px-2 py-1.5 text-inkdim">Farms —</span>
+          </div>
+          <p class="mt-3 text-xs text-inkdim">Also handled ZebraSwap's X presence, marketing and social activity.</p>
+        </div>
+      </article>
+
+      <!-- Binance P2P Arbitrage -->
+      <article class="card project-card reveal" data-tags="fullstack">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-fullstack border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3"><span class="tag text-[10px] px-2 py-0.5 rounded-full border border-fullstack text-fullstack">FULL-STACK</span></div>
+          <h3 class="text-lg font-bold text-ink">Binance P2P Arbitrage Detection</h3>
+          <p class="text-xs text-inkdim mb-3">CCXT · Binance P2P · Telegram</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Built a system for detecting triangular arbitrage across Binance P2P markets, with currency/payment-method selection and continuous monitoring; later developed it into a Telegram bot. International team across Portugal, Russia and the Netherlands.</p>
+          <p class="mt-4 font-mono text-[10px] uppercase tracking-widest text-inkdim">Market data → Path search → Opportunity detection → Telegram</p>
+        </div>
+      </article>
+
+      <!-- Nakamoto's Lost Wallet -->
+      <article class="card project-card reveal" data-tags="web3 creative">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-web3 border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3">
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-web3 text-web3">WEB3</span>
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-creative text-creative">CREATIVE</span>
+          </div>
+          <h3 class="text-lg font-bold text-ink">Nakamoto's Lost Wallet</h3>
+          <p class="text-xs text-inkdim mb-3">NFT Concept · Puzzle &amp; Game Mechanics</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Designed an NFT treasure hunt distributing a 12-word seed phrase through riddles and clues, combining NFT sales, puzzle-solving and community participation.</p>
+          <p class="mt-3 text-xs text-inkdim">Concept stage — planned funding did not materialize.</p>
+        </div>
+      </article>
+
+      <!-- DuckGen -->
+      <article class="card project-card reveal" data-tags="fullstack web3">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-fullstack border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3">
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-fullstack text-fullstack">FULL-STACK</span>
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-web3 text-web3">WEB3</span>
+          </div>
+          <h3 class="text-lg font-bold text-ink">DuckGen</h3>
+          <p class="text-xs text-inkdim mb-3">XRPL · XLS-20 · FFmpeg · ProRes 4444</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Custom NFT-generation pipeline for WTD's animated collection — layered animation compositing, terminal UI, ~2,000 NFTs generated with organized drag-and-drop output for XRPCafe. Later reused for a paid AI-art commission.</p>
+        </div>
+      </article>
+
+      <!-- XRPL Referral Platform -->
+      <article class="card project-card reveal" data-tags="fullstack web3 growth">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-fullstack border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3">
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-fullstack text-fullstack">FULL-STACK</span>
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-web3 text-web3">WEB3</span>
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-growth text-growth">GROWTH</span>
+          </div>
+          <h3 class="text-lg font-bold text-ink">XRPL NFT Referral &amp; Whitelist Platform</h3>
+          <p class="text-xs text-inkdim mb-3">XRPL · Bithomp API · WalletConnect</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Solved minter-attribution after NFT transfer by pattern-matching the first create-offer after mint. Built a Captain/squad referral system (5% referral / 10% ambassador rewards), rotated 5 free Bithomp keys to dodge API costs, and kept Supabase alive on the free tier with a keepalive script.</p>
+        </div>
+      </article>
+
+      <!-- Princess AI -->
+      <article class="card project-card reveal" data-tags="ai">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-ai border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3"><span class="tag text-[10px] px-2 py-0.5 rounded-full border border-ai text-ai">AI</span></div>
+          <h3 class="text-lg font-bold text-ink">Princess AI</h3>
+          <p class="text-xs text-inkdim mb-3">OpenRouter · LLMs · Memory · Personality</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Experimental conversational AI with a designed personality and tarot functionality; currently building automatic memory extraction from conversations.</p>
+        </div>
+      </article>
+
+      <!-- Local LLM Command Center -->
+      <article class="card project-card reveal" data-tags="ai fullstack">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-ai border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3">
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-ai text-ai">AI</span>
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-fullstack text-fullstack">FULL-STACK</span>
+          </div>
+          <h3 class="text-lg font-bold text-ink">Local LLM Command Center</h3>
+          <p class="text-xs text-inkdim mb-3">Ollama · Local Models · Smart Routing · Memory · Vector DB</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Built a local multi-model AI dashboard experimenting with smart model routing, personality presets, persistent memory, vector-database-backed context, guardrails and an AI-council workflow.</p>
+          <p class="mt-4 font-mono text-[10px] uppercase tracking-widest text-inkdim">Route · Context · Model · Memory · Verify</p>
+        </div>
+      </article>      <!-- WTD AI Army + Claude Commander MCP -->
+      <article class="card project-card reveal" data-tags="ai fullstack">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-ai border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3">
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-ai text-ai">AI</span>
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-fullstack text-fullstack">FULL-STACK</span>
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-ai/40 text-inkdim">MCP</span>
+          </div>
+          <h3 class="text-lg font-bold text-ink">WTD AI Army + Claude Commander MCP</h3>
+          <p class="text-xs text-inkdim mb-3">Claude Skill · MCP · Local Model Delegation · Verification</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Built a Claude skill and MCP delegation layer that lets Claude call local models through the WTD AI Army, delegate specific tasks to local inference, then review and verify the returned work before accepting the result.</p>
+          <div class="mt-4 grid grid-cols-3 gap-2 font-mono text-[10px] uppercase tracking-widest">
+            <span class="border border-ai/30 px-2 py-1.5 text-ai">Delegate</span>
+            <span class="border border-ai/30 px-2 py-1.5 text-ai">Local Models</span>
+            <span class="border border-ai/30 px-2 py-1.5 text-ai">Verify</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Chicken -->
+      <article class="card project-card reveal" data-tags="web3 creative">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-web3 border-t-line border-r-line border-b-line bg-bg/60 p-6 rounded-r-lg">
+          <div class="flex gap-2 mb-3">
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-web3 text-web3">WEB3</span>
+            <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-creative text-creative">CREATIVE</span>
+          </div>
+          <h3 class="text-lg font-bold text-ink">Chicken</h3>
+          <p class="text-xs text-inkdim mb-3">XRPL · XLS-20 · XLS-46D · XLS-70 Credentials</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Current collaboration as artist, combining XLS-20 NFTs with XLS-70 credentials as a proof-of-authenticity / provenance mechanism, with potential adversarial testing involvement.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- recurring thread callout -->
+    <div class="reveal mt-14 border border-line rounded-lg p-6 md:p-8 bg-bg/40">
+      <p class="font-mono text-xs tracking-widest text-gold uppercase mb-3">Recurring thread</p>
+      <p class="text-ink/80 leading-relaxed max-w-3xl">Worked primarily with international, distributed teams across time zones and blockchain ecosystems — and repeatedly shipped under real constraints: reverse-engineering ZebraSwap without AI assistance, rotating free API keys and a Supabase keepalive to avoid infrastructure cost, and building the tooling myself rather than hiring out when resources were limited.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CREATIVE, CONTENT & BRAND ============ -->
+<section id="creative" class="relative py-28 px-6 md:px-10">
+  <div class="max-w-6xl mx-auto">
+    <p class="reveal section-kicker font-mono text-xs tracking-[0.25em] text-creative uppercase mb-3">03 — Made</p>
+    <h2 class="reveal text-4xl md:text-5xl font-black tracking-tight mb-4">Creative, Content &amp; Brand</h2>
+    <p class="reveal text-inkdim max-w-2xl mb-10">What The Duck's entire creative universe — art, video, music and brand — built and produced personally.</p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="card reveal">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-creative border-t-line border-r-line border-b-line bg-bgraised/60 p-6 rounded-r-lg">
+          <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-creative text-creative">CREATIVE · WEB3</span>
+          <h3 class="text-lg font-bold text-ink mt-3">Duckers Bloodline</h3>
+          <p class="text-xs text-inkdim mb-3">AI Artist · Digital Art · NFT Collection · Noir Direction</p>
+          <p class="text-sm text-ink/70 leading-relaxed">~2,000-piece animated NFT collection — personally created the artwork and noir visual direction, using AI tools (Gemini, Kling) alongside Photoshop and DaVinci Resolve for compositing.</p>
+          <p class="mt-4 font-mono text-[10px] uppercase tracking-widest text-gold">₹1.5L+ sales in 7 days</p>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-creative border-t-line border-r-line border-b-line bg-bgraised/60 p-6 rounded-r-lg">
+          <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-creative text-creative">CREATIVE</span>
+          <h3 class="text-lg font-bold text-ink mt-3">Only Ducks</h3>
+          <p class="text-xs text-inkdim mb-3">Spicy Comedy · Short-Form · Viral Content</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Concept, scripts, editing (CapCut) and Duck-character voiceover for spicy short-form content built with virality in mind.</p>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-creative border-t-line border-r-line border-b-line bg-bgraised/60 p-6 rounded-r-lg">
+          <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-creative text-creative">CREATIVE</span>
+          <h3 class="text-lg font-bold text-ink mt-3">No Ducks Given</h3>
+          <p class="text-xs text-inkdim mb-3">Roast / Commentary · Viral Content</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Concept, roast scripts, voiceover and editing for commentary content deliberately built for viral distribution.</p>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-growth border-t-line border-r-line border-b-line bg-bgraised/60 p-6 rounded-r-lg">
+          <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-creative text-creative">CREATIVE</span>
+          <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-growth text-growth ml-1">GROWTH</span>
+          <h3 class="text-lg font-bold text-ink mt-3">WTD Music</h3>
+          <p class="text-xs text-inkdim mb-3">Original Lyrics · AI Music (Suno)</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Wrote the lyrics for 6 original songs across different genres, using "Duck It" in every chorus and #DuckIt as a recurring brand device — including one track for a planned twerk contest.</p>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-growth border-t-line border-r-line border-b-line bg-bgraised/60 p-6 rounded-r-lg">
+          <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-growth text-growth">GROWTH</span>
+          <h3 class="text-lg font-bold text-ink mt-3">WTD Brand Content</h3>
+          <p class="text-xs text-inkdim mb-3">Memes · Stickers · Social · Community</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Ongoing content built to maintain WTD's identity and social presence — memes, stickers, promotional content, social posts and branded creative.</p>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-creative border-t-line border-r-line border-b-line bg-bgraised/60 p-6 rounded-r-lg">
+          <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-creative text-creative">CREATIVE</span>
+          <h3 class="text-lg font-bold text-ink mt-3">Abhaya Promotional Video</h3>
+          <p class="text-xs text-inkdim mb-3">Photography · Suno · Independent</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Independently shot and edited photography, wrote and generated the song with Suno, then built and edited the full slideshow/video — well received on multiple replays.</p>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-creative border-t-line border-r-line border-b-line bg-bgraised/60 p-6 rounded-r-lg">
+          <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-creative text-creative">CREATIVE</span>
+          <h3 class="text-lg font-bold text-ink mt-3">Bloodscale Eternal</h3>
+          <p class="text-xs text-inkdim mb-3">AI Artist · Digital Art · Limited Edition</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Original digital artwork released as a 10-edition limited run — the full release sold for <strong class="text-ink">$100</strong> and sold out.</p>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="h-full border-l-2 border-t border-r border-b border-l-creative border-t-line border-r-line border-b-line bg-bgraised/60 p-6 rounded-r-lg">
+          <span class="tag text-[10px] px-2 py-0.5 rounded-full border border-creative text-creative">CREATIVE</span>
+          <h3 class="text-lg font-bold text-ink mt-3">Independent Music</h3>
+          <p class="text-xs text-inkdim mb-3">Original Songs</p>
+          <p class="text-sm text-ink/70 leading-relaxed">Original songs created independently, including "Clown's Shadow," which received strong reception, alongside other experimental tracks.</p>
+        </div>
+      </article>
+
+      <article class="card reveal">
+        <div class="h-full border border-dashed border-gold/40 bg-bg/40 p-6 rounded-lg flex flex-col justify-center">
+          <p class="font-mono text-[10px] tracking-widest text-gold uppercase mb-3">Creative toolkit</p>
+          <p class="text-sm text-ink/80 leading-relaxed">Photoshop · DaVinci Resolve · CapCut · Midjourney · Gemini · Kling · Pika · Suno · ChatGPT</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY, BRAND & GROWTH ============ -->
+<section id="growth" class="relative py-28 px-6 md:px-10 bg-bgraised/40 border-y hairline">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-5 gap-12">
+    <div class="md:col-span-2">
+      <p class="reveal section-kicker font-mono text-xs tracking-[0.25em] text-growth uppercase mb-3">04 — Grown</p>
+      <h2 class="reveal text-4xl md:text-5xl font-black tracking-tight mb-6">Community, Brand &amp; Growth</h2>
+      <p class="reveal text-ink/70 leading-relaxed">Built WTD's presence across X, Telegram and Discord — and turned attention into a real network and pipeline of opportunities.</p>
+    </div>
+    <div class="md:col-span-3 reveal">
+      <ul class="space-y-5 text-ink/80 leading-relaxed text-sm md:text-base">
+        <li class="flex gap-3"><span class="text-growth font-mono">→</span>Grew WTD's X account to ~1,500 followers while building a much broader international network through years of Spaces, collaborations and direct relationships.</li>
+        <li class="flex gap-3"><span class="text-growth font-mono">→</span>Regularly hosted, co-hosted and joined X Spaces — including organizing a cross-chain Space with ~10 projects and 500 listeners.</li>
+        <li class="flex gap-3"><span class="text-growth font-mono">→</span>Used content, memes, giveaways, contests, referral mechanics and cross-community promotion to attract attention and grow participation.</li>
+        <li class="flex gap-3"><span class="text-growth font-mono">→</span>Built an invite-contest bot and onboarded teammates, teaching them WTD's meme/content workflows.</li>
+        <li class="flex gap-3"><span class="text-growth font-mono">→</span>Built relationships across chains and time zones, including accounts ranging from 40K–60K+ followers.</li>
+        <li class="flex gap-3"><span class="text-growth font-mono">→</span>Developed a reputation that generated referrals and inbound creative/project opportunities — including work received without actively seeking it.</li>
+        <li class="flex gap-3"><span class="text-growth font-mono">→</span>Planned a Bitcoin 2025 Las Vegas livestream and IRL contests as part of WTD's promotional activity.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW I WORK ============ -->
+<section id="approach" class="py-24 px-6 md:px-10 border-t hairline">
+  <div class="max-w-6xl mx-auto">
+    <p class="reveal section-kicker font-mono text-xs tracking-[0.25em] text-gold uppercase mb-3">05 — How I work</p>
+    <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight mb-12">Strengths that show up in the work.</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="reveal card p-6"><p class="font-mono text-xs uppercase tracking-widest text-gold mb-3">Systems thinker</p><p class="text-sm text-ink/70 leading-relaxed">I connect product, technical constraints, users, distribution and operations rather than treating them as separate problems.</p></div>
+      <div class="reveal card p-6"><p class="font-mono text-xs uppercase tracking-widest text-gold mb-3">Self-taught builder</p><p class="text-sm text-ink/70 leading-relaxed">When I don't know something, I tend to learn by building it — from unfamiliar DEX architecture to local-model tooling.</p></div>
+      <div class="reveal card p-6"><p class="font-mono text-xs uppercase tracking-widest text-gold mb-3">Resourceful under constraints</p><p class="text-sm text-ink/70 leading-relaxed">API limits, free-tier infrastructure and knowledge gaps become engineering problems to solve rather than automatic reasons to stop.</p></div>
+      <div class="reveal card p-6"><p class="font-mono text-xs uppercase tracking-widest text-gold mb-3">Cross-disciplinary</p><p class="text-sm text-ink/70 leading-relaxed">Comfortable moving between engineering, AI systems, creative production, community and growth.</p></div>
+    </div>
+    <div class="reveal mt-8 border border-line bg-bg/50 p-6 md:p-8 rounded-lg">
+      <p class="font-mono text-xs uppercase tracking-widest text-ai mb-3">Currently exploring & building</p>
+      <p class="text-lg text-ink/80">Android development <span class="text-line">·</span> AI / LLM engineering <span class="text-line">·</span> hand-drawn digital art</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills" class="relative py-28 px-6 md:px-10">
+  <div class="max-w-6xl mx-auto">
+    <p class="reveal section-kicker font-mono text-xs tracking-[0.25em] text-gold uppercase mb-3">06 — Toolset</p>
+    <h2 class="reveal text-4xl md:text-5xl font-black tracking-tight mb-14">Skills</h2>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="reveal">
+        <p class="font-mono text-xs uppercase tracking-widest text-fullstack mb-3">Full-Stack Engineering</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">JavaScript</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">TypeScript</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">React</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">Node.js</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">Next.js</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">Angular</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">MongoDB</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">HTML/CSS</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">Bootstrap</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">REST APIs</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">Python</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-fullstack/50 text-ink/80">Java</span>
+        </div>
+        <p class="text-xs text-inkdim mt-3">MERN / MEAN stack · CLI development · Debugging · Logging · Root-cause analysis</p>
+      </div>
+
+      <div class="reveal">
+        <p class="font-mono text-xs uppercase tracking-widest text-web3 mb-3">Blockchain &amp; Web3</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">Solidity</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">Ethereum</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">XRPL</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">Solana</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">Sui</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">Smart Contracts</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">NFTs</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">DeFi / DEXs</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">WalletConnect</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">Graph Protocol</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">Bithomp API</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">CCXT</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">Hardhat</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">Truffle</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-web3/50 text-ink/80">CosmWasm</span>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p class="font-mono text-xs uppercase tracking-widest text-ai mb-3">AI &amp; LLM Systems</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">Claude Code</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">Cursor</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">ChatGPT</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">Gemini</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">OpenRouter</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">Ollama</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">Local LLMs</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">Model Routing</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">Vector Databases</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">AI Memory</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-ai/50 text-ink/80">Multi-Model Workflows</span>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p class="font-mono text-xs uppercase tracking-widest text-creative mb-3">Creative Technology &amp; AI Art</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink">AI Artist</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink">AI Art / Generative Visuals</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">Photoshop</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">DaVinci Resolve</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">CapCut</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">Midjourney</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">Kling</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">Pika</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">Suno</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">FFmpeg</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">Video Editing</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">Compositing / VFX</span>
+          <span class="tag text-xs px-3 py-1.5 rounded-full border border-creative/50 text-ink/80">Voiceover</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal mt-12 grid md:grid-cols-2 gap-6">
+      <div class="border border-line rounded-lg p-6">
+        <p class="font-mono text-[10px] uppercase tracking-widest text-gold mb-2">Additional capabilities</p>
+        <p class="text-sm text-ink/70 leading-relaxed">Architecture &amp; System Design · Rapid Prototyping · Reverse Engineering · Security-Minded Testing · Cost-Conscious Infrastructure · API Integration · AI Orchestration</p>
+      </div>
+      <div class="border border-dashed border-gold/40 rounded-lg p-6">
+        <p class="font-mono text-[10px] uppercase tracking-widest text-gold mb-2">Currently exploring &amp; building</p>
+        <p class="text-sm text-ink/70 leading-relaxed">Android Development · AI Engineering / LLM Systems · Hand-Drawn Digital Art</p>
+      </div>
+    </div>
+
+    <p class="reveal font-mono text-xs text-inkdim mt-10 border-l-2 border-gold pl-4">Learn by building · Rapid experimentation · Cross-disciplinary problem solving · Resourceful execution</p>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer id="contact" class="relative py-28 px-6 md:px-10 border-t hairline">
+  <div class="max-w-6xl mx-auto text-center">
+    <p class="reveal section-kicker font-mono text-xs tracking-[0.25em] text-gold uppercase mb-4">07 — Let's build</p>
+    <h2 class="reveal text-4xl md:text-6xl font-black tracking-tight mb-8">Get in touch</h2>
+    <div class="reveal flex flex-wrap justify-center gap-4 font-mono text-sm">
+      <a href="tel:+917483944909" class="px-5 py-3 border border-line hover:border-gold transition-colors">PHONE — +91 7483944909</a>
+      
+      <a href="https://x.com/WTDxrpl" target="_blank" rel="noopener noreferrer" class="px-5 py-3 border border-line hover:border-gold transition-colors">X — @WTDxrpl</a>
+    </div>
+    <p class="reveal text-xs text-inkdim mt-5">Email available directly for interview and project inquiries.</p>
+    <p class="reveal text-inkdim text-xs mt-16 font-mono">© <span id="year"></span> Hariprasad — Built with curiosity.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // scroll reveal + spine node lighting
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('.reveal');
+  const spineEls = document.querySelectorAll('[data-spine] .spine-node');
+
+  if (reduced) {
+    revealEls.forEach(el => el.classList.add('in'));
+    spineEls.forEach(el => el.classList.add('lit'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          const node = entry.target.querySelector('.spine-node');
+          if (node) node.classList.add('lit');
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  }
+
+  // project filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('#project-grid > [data-tags]');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.removeAttribute('data-active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.setAttribute('data-active', 'true');
+      btn.setAttribute('aria-pressed', 'true');
+      const f = btn.dataset.filter;
+      projectCards.forEach(card => {
+        const tags = card.dataset.tags.split(' ');
+        const show = f === 'all' || tags.includes(f);
+        card.style.display = show ? '' : 'none';
+        if (show) card.classList.add('in');
+      });
+    });
+  });
+
+  // subtle stat count-up
+  const statEls = document.querySelectorAll('.stat-value[data-count]');
+  const statObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (el.dataset.counted) return;
+      el.dataset.counted = 'true';
+      const target = Number(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const inner = el.querySelector('span:first-child');
+      if (!inner) return;
+      const duration = 850;
+      const start = performance.now();
+      const tick = now => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(target * eased);
+        inner.textContent = value.toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      if (!reduced) requestAnimationFrame(tick);
+      else inner.textContent = target.toLocaleString() + suffix;
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  if (!reduced) statEls.forEach(el => statObserver.observe(el));
+
+  // mobile hamburger menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuBars = menuToggle.querySelectorAll('.menu-bar');
+
+  function setMenuOpen(open) {
+    menuToggle.setAttribute('aria-expanded', String(open));
+    mobileMenu.style.maxHeight = open ? mobileMenu.scrollHeight + 'px' : '0px';
+    menuBars[0].style.transform = open ? 'translateY(6.5px) rotate(45deg)' : '';
+    menuBars[1].style.opacity = open ? '0' : '1';
+    menuBars[2].style.transform = open ? 'translateY(-6.5px) rotate(-45deg)' : '';
+    document.body.classList.toggle('overflow-hidden', open);
+  }
+
+  menuToggle.addEventListener('click', () => {
+    setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) setMenuOpen(false);
+  });
+
+  // active section in desktop navigation
+  const navLinks = [...document.querySelectorAll('#desktopNav a[href^="#"]')];
+  const sections = navLinks
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach(link => {
+        const active = link.getAttribute('href') === '#' + entry.target.id;
+        link.classList.toggle('text-ink', active);
+        link.classList.toggle('text-inkdim', !active);
+      });
+    });
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+  if (!reduced) sections.forEach(section => sectionObserver.observe(section));
+
+  // section progress rail — syncs with the same sections above
+  const railItems = [...document.querySelectorAll('.rail-item')];
+  const railObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      railItems.forEach(item => {
+        item.dataset.active = String(item.dataset.rail === entry.target.id);
+      });
+    });
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+  sections.forEach(section => railObserver.observe(section));
+
+  // hero glow parallax drift + journey spine scroll-draw
+  const heroGlow = document.querySelector('.hero-glow');
+  const spineFill = document.getElementById('spineFill');
+  const journeyTrack = document.getElementById('journeyTrack');
+
+  function onScroll() {
+    if (heroGlow) {
+      const py = Math.min(window.scrollY * 0.12, 90);
+      heroGlow.style.setProperty('--py', py + 'px');
+    }
+    if (spineFill && journeyTrack) {
+      const rect = journeyTrack.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const total = rect.height + vh * 0.5;
+      const traveled = vh * 0.85 - rect.top;
+      const progress = Math.min(1, Math.max(0, traveled / total));
+      spineFill.style.transform = `scaleY(${progress})`;
+    }
+  }
+
+  if (!reduced) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { onScroll(); ticking = false; });
+        ticking = true;
+      }
+    }, { passive: true });
+    onScroll();
+  }
+
+  // card tilt on hover (pointer devices only)
+  if (!reduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        const rotateX = (-y * 8).toFixed(2);
+        const rotateY = (x * 8).toFixed(2);
+        card.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+</script>
+</body>
+</html>
